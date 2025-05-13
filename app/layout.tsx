@@ -1,16 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import localFont from 'next/font/local'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// Theme Switcher components
+import { ThemeProvider } from "next-themes";
+import ScrollContext_Lenis from "@/providers/SmoothScrollContext_lenis";
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// Local Fonts  
+// 1. import, 2. add to body, 3. add to tailwind config
+// 4. use as a className as. font-ogg-reg
+const OggRegular = localFont({
+  src: [
+    {
+      path: '../public/fonts/Ogg-Regular-BF646c18fc465e5.ttf',
+    },
+  ],
+  variable: '--font-ogg-reg'
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,15 +25,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${OggRegular.variable} relative min-h-[100vh] cf2`}>
+      
+      <ScrollContext_Lenis>
+      <ThemeProvider enableSystem={true} defaultTheme="system">
         {children}
+        </ThemeProvider>
+      </ScrollContext_Lenis>
       </body>
     </html>
   );
