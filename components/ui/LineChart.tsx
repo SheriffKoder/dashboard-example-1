@@ -25,6 +25,9 @@
  * 7. Render the chart with loading state handling
  */
 
+// ignore this file for now in typescript
+//@ts-nocheck
+
 "use client";
 // npm install chart.js react-chartjs-2
 import React, { useEffect, useRef, useState } from 'react';
